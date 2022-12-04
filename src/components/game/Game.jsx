@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import GameOption from "../gameOption/GameOption"
 import style from "./Game.module.css"
-import Icons from "../icons/Icons"
+import GameInfo from "../gameinfo/Gameinfo"
+
 
 const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 verticais, 2 diagonais
   [0, 1, 2],
@@ -35,7 +36,11 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
         const sum = values.reduce((sum, value)=> sum+ value) // soma os cliques dos jogadores
         if(sum === 3 || sum === -3) setWinner(sum/3) // verificação de vencedor
      })
-
+   }
+   
+   const handleReset = () => {
+     setGameState(Array(9).fill(0))
+     setWinner(0)  
   }
    useEffect(() => { // hook para fazer verificação, sem interações do usuário. ex: chamada de api pra ser carregada, verificação de player atual
      setCurrentPlayer(currentPlayer * -1) // função para alterar o player
@@ -51,16 +56,7 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
 
            }
          </div>
-         <div className={style.gameInfo}>
-          <h4>Próximo a jogar:</h4>
-          {
-            currentPlayer === 1 && <Icons iconName="circle"/>
-          }
-           {
-             currentPlayer === -1 && <Icons iconName="x" />
-           }
-
-         </div>
+         <GameInfo currentPlayer={currentPlayer} winner={winner} onReset={handleReset}  />
       </div>
         
      )
