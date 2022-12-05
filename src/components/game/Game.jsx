@@ -56,7 +56,7 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
 
            }
          </div>
-         <GameInfo currentPlayer={currentPlayer} winner={winner} onReset={handleReset}  />
+         <GameInfo currentPlayer={currentPlayer} winner={winner} onReset={handleReset} />
       </div>
         
      )

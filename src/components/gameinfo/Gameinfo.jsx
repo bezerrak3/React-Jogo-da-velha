@@ -4,6 +4,7 @@ import Button from "../button/Button"
 
 function GameInfo({currentPlayer, winner, onReset}) {
 
+
     const shouldEnableButton = () =>{
         if(winner !== 0) return true
     }
