@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import GameOption from "../gameOption/GameOption"
 import style from "./Game.module.css"
 import GameInfo from "../gameinfo/Gameinfo"
+import Score from "../score/Score"
 
 
 const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 verticais, 2 diagonais
@@ -72,7 +73,7 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
    }, [winner])
      
      return(
-
+     <>
       <div className={style.gameContent}>
          <div className={style.game}>
            {
@@ -81,8 +82,10 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
            }
          </div>
          <GameInfo currentPlayer={currentPlayer} winner={winner} onReset={handleReset} isDraw={draw} />
+           
       </div>
-        
+         <Score />
+    </>   
      )
  }
 
