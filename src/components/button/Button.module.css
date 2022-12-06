@@ -5,7 +5,12 @@
     cursor: pointer;
     background-color: #007BFF;
     color: white;
+    transition: all ease-out 0.2s;
 
+}
+
+.button:hover{
+    background-color: #007B23;
 }
 
 .button:disabled{
