@@ -16,9 +16,10 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
 ]
 
  function Game(){
-  const [gameState, setGameState] = useState(Array(9).fill(0)) // criação do tabuleiro
+  const [gameState, setGameState] = useState(Array(9).fill(0)) // criação do tabuleiro - array de 9 posições, todos começando em 0(fill)
   const [currentPlayer, setCurrentPlayer ] = useState(1) // criação do jogador
   const [winner, setWinner] = useState(0) // função para verificar campeão
+  const [winnerLine, setWinnerLine] = useState([])
 
   const handleClick = (pos) =>{
     if(gameState[pos] === 0 && winner === 0 ){ //verificação: 1- se o espaço estiver preenchido com bola(-1) ou "x"(1) não se pode alterar| 2- Quando a função setWinner for diferente de 0 não se pode alterar
@@ -34,14 +35,23 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
      verifyWinner.forEach((line)=>{
         const values = line.map((pos)=> gameState[pos]) // troca(map) as posições dos arrays, pelos cliques dos jogadores e acumula
         const sum = values.reduce((sum, value)=> sum+ value) // soma os cliques dos jogadores
-        if(sum === 3 || sum === -3) setWinner(sum/3) // verificação de vencedor
+        if(sum === 3 || sum === -3){ 
+        setWinner(sum/3) // verificação de vencedor
+        setWinnerLine(line)} // verificação de linha vencedora
      })
    }
    
    const handleReset = () => {
      setGameState(Array(9).fill(0))
-     setWinner(0)  
+     setWinner(0)
+     setWinnerLine([])
+    
   }
+
+   const verifyWinnerLine = (pos) => 
+     winnerLine.find((value) => value === pos) !== undefined // essa funcão verifica se as posições do gameOption(0 a 8) são iguais as da linha campeã
+
+
    useEffect(() => { // hook para fazer verificação, sem interações do usuário. ex: chamada de api pra ser carregada, verificação de player atual
      setCurrentPlayer(currentPlayer * -1) // função para alterar o player
      verifyGame()
@@ -52,7 +62,7 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
       <div className={style.gameContent}>
          <div className={style.game}>
            {
-             gameState.map((value, pos) => <GameOption key={`game-option-pos-${pos}`} status={value} onClick={() => handleClick(pos)}/>)
+             gameState.map((value, pos) => <GameOption key={`game-option-pos-${pos}`} status={value} onClick={() => handleClick(pos)} isWinner={verifyWinnerLine(pos)}/>)
 
            }
          </div>
