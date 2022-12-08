@@ -1,21 +1,23 @@
 import Icons from "../icons/Icons"
 import style from "./Score.module.css"
 
-function Score (){
+function Score ({scoreb,scorex}){
+  
   return(
       <>
-       <h4>Placar: </h4>
-       <div className={style.score}>
+        <h4 className={style.placar}>Scoreboard </h4>
+        <div className={style.score}>
         <div className={style.scoreContent}>
           <Icons iconName="circle"/>
-          <h2>0</h2>
+          <p>{scoreb}</p>
+          
         </div>
         <div className={style.scoreContent}>
           <Icons iconName="x"/>
-          <h2>0</h2>
+          <p>{scorex}</p>    
         </div>
       </div> 
-      </>
+     </>
   )
 }
 

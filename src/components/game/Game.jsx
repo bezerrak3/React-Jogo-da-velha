@@ -22,6 +22,9 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
   const [winner, setWinner] = useState(0) // função para verificar campeão
   const [winnerLine, setWinnerLine] = useState([]) // função pra verificar a linha vencedora
   const [draw, setDraw] = useState(false)
+  const [scorex, setScorex] = useState(0)
+  const [scoreb, setScoreb] = useState(0)
+
 
   const handleClick = (pos) =>{
     if(gameState[pos] === 0 && winner === 0 ){ //verificação: 1- se o espaço estiver preenchido com bola(-1) ou "x"(1) não se pode alterar| 2- Quando a função setWinner for diferente de 0 não se pode alterar
@@ -39,10 +42,15 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
         const sum = values.reduce((sum, value)=> sum+ value) // soma os cliques dos jogadores
         if(sum === 3 || sum === -3){ 
         setWinner(sum/3) // verificação de vencedor
-        setWinnerLine(line)} // verificação de linha vencedora
+        setWinnerLine(line) // verificação de linha vencedora
+        setScoreb(sum/3 === 1 && scoreb+1)
+        setScorex(sum/3 === -1 && scorex+1)
+}
+        
+      
+         
      })
    }
-   
 
    const handleReset = () => {
      setGameState(Array(9).fill(0))
@@ -63,7 +71,7 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
 
 
    useEffect(() => { // hook para fazer verificação, sem interações do usuário. ex: chamada de api pra ser carregada, verificação de player atual
-     setCurrentPlayer(currentPlayer * -1) // função para alterar o player
+     setCurrentPlayer(currentPlayer * -1) // função para alterar o player s
      verifyGame()
      verifyDraw()
    }, [gameState])
@@ -84,7 +92,9 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
          <GameInfo currentPlayer={currentPlayer} winner={winner} onReset={handleReset} isDraw={draw} />
            
       </div>
-         <Score />
+      <div>
+        <Score scorex={scorex} scoreb={scoreb}/>
+      </div>    
     </>   
      )
  }
