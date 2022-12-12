@@ -43,14 +43,10 @@ const verifyWinner = [ // linhas possíveis de vitória || 3 honrizontais, 3 ver
         if(sum === 3 || sum === -3){ 
         setWinner(sum/3) // verificação de vencedor
         setWinnerLine(line) // verificação de linha vencedora
-        setScoreb(sum/3 === 1 && scoreb+1)
-        setScorex(sum/3 === -1 && scorex+1)
-}
-        
-      
-         
-     })
-   }
+        sum / 3 === 1 ? setScoreb(scoreb + 1) : setScorex(scorex + 1)
+      }
+   })
+  }    
 
    const handleReset = () => {
      setGameState(Array(9).fill(0))
